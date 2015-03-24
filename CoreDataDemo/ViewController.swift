@@ -8,12 +8,22 @@
 
 import UIKit
 
+import CoreData
+
 class ViewController: UIViewController {
+    
+    var contacts = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
+        if let managedObjectContext = (UIApplication.sharedApplication().delegate as
+            AppDelegate).managedObjectContext {
+            let fetchRequest = NSFetchRequest(entityName: "Contact")
+            var e: NSError?
+            contacts = managedObjectContext.executeFetchRequest(fetchRequest, error: &e) as
+                [Contact]
+        }
+}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
